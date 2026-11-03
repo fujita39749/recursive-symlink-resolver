@@ -19,3 +19,10 @@ The interpretation chosen: a symlink whose *target* does not exist is not an err
 `max_depth` defaults to 40, mirroring the Linux kernel's `SYMLOOP_MAX`. If your platform enforces a different limit the resolver will still stop at 40 hops, which is enough for any legitimate chain and short enough to fail fast on a runaway loop.
 
 The awkward edge: because resolution relies on `os.path.realpath`, the returned string uses the OS's canonical form. On macOS, paths under `/private/var` will be reported with that prefix even if the input did not include it. That is the OS resolving a top-level symlink; the library does not try to undo it.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
