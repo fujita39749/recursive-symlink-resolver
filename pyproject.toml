@@ -1,6 +1,6 @@
 [project]
 name = "recursive-symlink-resolver"
-version = "0.1.0"
+version = "0.1.1"
 description = "Follows symbolic links to find the actual file and reports if a loop is encountered"
 requires-python = ">=3.10"
 dependencies = []
